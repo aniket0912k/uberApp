@@ -1,7 +1,9 @@
 package com.aniket.uberApp.strategies;
 
 import com.aniket.uberApp.dto.RideRequestDTO;
+import com.aniket.uberApp.entities.RideRequest;
 
 public interface RideFareCalculationStrategy {
-    double calculateFare(RideRequestDTO rideRequestDTO);
+    static final double FARE_MULTIPLIER = 10.0;
+    double calculateFare(RideRequest rideRequest);
 }

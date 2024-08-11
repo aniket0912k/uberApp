@@ -1,7 +1,6 @@
 package com.aniket.uberApp.entities;
 
 import com.aniket.uberApp.entities.enums.PaymentMethod;
-import com.aniket.uberApp.entities.enums.RideRequestStatus;
 import com.aniket.uberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
