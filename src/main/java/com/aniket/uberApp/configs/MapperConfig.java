@@ -15,13 +15,16 @@ public class MapperConfig {
     @Bean
     public ModelMapper modelMapper(){
         ModelMapper mapper = new ModelMapper();
-        mapper.typeMap(PointDTO.class, Point.class).setConverter(context ->{
-            PointDTO pointDTO = context.getSource();
-            return GeometryUtil.createPoint(pointDTO);
+        mapper.typeMap(PointDTO.class, Point.class).setConverter(context -> {
+            PointDTO pointDto = context.getSource();
+            return GeometryUtil.createPoint(pointDto);
         });
-        mapper.typeMap(Point.class, PointDTO.class).setConverter(context ->{
+        mapper.typeMap(Point.class, PointDTO.class).setConverter(context -> {
             Point point = context.getSource();
-            Double coordinates[] = {point.getX(), point.getY()};
+            double coordinates[] = {
+                    point.getX(),
+                    point.getY()
+            };
             return new PointDTO(coordinates);
         });
         mapper.addMappings(new PropertyMap<User, UserDTO>() {

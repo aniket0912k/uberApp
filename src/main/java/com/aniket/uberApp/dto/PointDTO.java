@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PointDTO {
 
-    private Double[] coordinates;
-    private String type =  "Point";
+    private double[] coordinates;
+    private String type = "Point";
 
-    public PointDTO(Double[] coordinates) {
+    public PointDTO(double[] coordinates) {
         this.coordinates = coordinates;
     }
 }
+
