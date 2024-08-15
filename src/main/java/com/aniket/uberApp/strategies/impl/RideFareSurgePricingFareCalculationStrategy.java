@@ -1,6 +1,5 @@
 package com.aniket.uberApp.strategies.impl;
 
-import com.aniket.uberApp.dto.RideRequestDTO;
 import com.aniket.uberApp.entities.RideRequest;
 import com.aniket.uberApp.services.DistanceService;
 import com.aniket.uberApp.strategies.RideFareCalculationStrategy;

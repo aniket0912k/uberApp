@@ -1,6 +1,5 @@
 package com.aniket.uberApp.strategies;
 
-import com.aniket.uberApp.dto.RideRequestDTO;
 import com.aniket.uberApp.entities.RideRequest;
 
 public interface RideFareCalculationStrategy {

@@ -1,12 +1,10 @@
 package com.aniket.uberApp.dto;
 
-import com.aniket.uberApp.entities.Rider;
 import com.aniket.uberApp.entities.enums.PaymentMethod;
 import com.aniket.uberApp.entities.enums.RideRequestStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
 
@@ -28,4 +26,6 @@ public class RideRequestDTO {
     private PaymentMethod paymentMethod;
 
     private RideRequestStatus rideRequestStatus;
+
+    private double fare;
 }

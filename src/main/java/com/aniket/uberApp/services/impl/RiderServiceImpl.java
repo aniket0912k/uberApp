@@ -12,13 +12,12 @@ import com.aniket.uberApp.entities.enums.RideRequestStatus;
 import com.aniket.uberApp.repositories.RideRequestRepository;
 import com.aniket.uberApp.repositories.RiderRepository;
 import com.aniket.uberApp.services.RiderService;
-import com.aniket.uberApp.strategies.DriverMatchingStrategy;
-import com.aniket.uberApp.strategies.RideFareCalculationStrategy;
 import com.aniket.uberApp.strategies.RideStrategyManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +32,7 @@ public class RiderServiceImpl implements RiderService {
     private final RiderRepository riderRepository;
 
     @Override
+    @Transactional
     public RideRequestDTO requestRide(RideRequestDTO rideRequestDTO) {
         Rider rider = getCurrentRider();
         RideRequest rideRequest = modelMapper.map(rideRequestDTO, RideRequest.class);

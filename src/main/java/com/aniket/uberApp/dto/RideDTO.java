@@ -1,22 +1,19 @@
 package com.aniket.uberApp.dto;
 
-import com.aniket.uberApp.entities.Driver;
-import com.aniket.uberApp.entities.Rider;
 import com.aniket.uberApp.entities.enums.PaymentMethod;
 import com.aniket.uberApp.entities.enums.RideStatus;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.locationtech.jts.geom.Point;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class RideDTO {
 
     private Long id;
 
-    private Point pickupLocation;
+    private PointDTO pickupLocation;
 
-    private Point dropLocation;
+    private PointDTO dropLocation;
 
     private LocalDateTime createdTime;
 
