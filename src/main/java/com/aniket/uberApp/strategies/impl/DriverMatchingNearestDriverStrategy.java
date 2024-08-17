@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DriverMatchingNearestDriverStrategy implements DriverMatchingStrategy {
     private final DriverRepository driverRepository;
+
     @Override
     public List<Driver> findMatchingDriver(RideRequest rideRequest) {
         return driverRepository.findTenNearestDriver(rideRequest.getPickupLocation());

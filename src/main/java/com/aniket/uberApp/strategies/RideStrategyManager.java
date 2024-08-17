@@ -23,18 +23,18 @@ public class RideStrategyManager {
         LocalTime surgeStartTime = LocalTime.of(18, 0);
         LocalTime surgeEndTime = LocalTime.of(21, 0);
         boolean isSurgeTime = LocalTime.now().isAfter(surgeStartTime) && LocalTime.now().isBefore(surgeEndTime);
-        if(isSurgeTime)
+        if (isSurgeTime)
             return rideFareSurgePricingFareCalculationStrategy;
         else
             return rideFareDefaultFareCalculationStrategy;
     }
+
     public DriverMatchingStrategy getDriverMatchingStrategy(Double rating) {
-        if(rating>=4.0)
+        if (rating >= 4.0)
             return driverMatchingHighestRatedDriverStrategy;
         else
             return driverMatchingNearestDriverStrategy;
     }
-
 
 
 }

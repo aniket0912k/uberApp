@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperConfig {
     @Bean
-    public ModelMapper modelMapper(){
+    public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
         mapper.typeMap(PointDTO.class, Point.class).setConverter(context -> {
             PointDTO pointDto = context.getSource();

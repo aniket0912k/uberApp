@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public UserDTO signup(SignUpDTO signUpDto) {
         User user = userRepository.findByEmail(signUpDto.getEmail()).orElse(null);
-        if(user != null){
+        if (user != null) {
             throw new RuntimeConflictException("Cannot signup, User already exists with this email: " + signUpDto.getEmail());
         }
         User mappedUser = modelMapper.map(signUpDto, User.class);

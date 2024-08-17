@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
                 .build();
         return buildErrorResponseEntity(apiError);
     }
+
     @ExceptionHandler(RuntimeConflictException.class)
     public ResponseEntity<ApiResponse<?>> runTimeConflictException(RuntimeConflictException exception) {
         ApiError apiError = ApiError.builder()
@@ -30,6 +31,7 @@ public class GlobalExceptionHandler {
                 .build();
         return buildErrorResponseEntity(apiError);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleInternalServerError(Exception exception) {
         ApiError apiError = ApiError.builder()

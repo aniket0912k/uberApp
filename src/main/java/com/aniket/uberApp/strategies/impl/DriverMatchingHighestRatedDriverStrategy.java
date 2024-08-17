@@ -14,6 +14,7 @@ import java.util.List;
 public class DriverMatchingHighestRatedDriverStrategy implements DriverMatchingStrategy {
 
     private final DriverRepository driverRepository;
+
     @Override
     public List<Driver> findMatchingDriver(RideRequest rideRequest) {
 

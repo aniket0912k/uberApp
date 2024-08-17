@@ -34,11 +34,11 @@ public class DriverServiceImpl implements DriverService {
     public RideDTO acceptRide(Long rideRequestId) {
         RideRequest rideRequest = rideRequestService.findRideRequestById(rideRequestId);
 
-        if(!rideRequest.getRideRequestStatus().equals(RideRequestStatus.PENDING)){
-            throw new RuntimeException("Ride Request can't be accepted and its status is: "+ rideRequest.getRideRequestStatus());
+        if (!rideRequest.getRideRequestStatus().equals(RideRequestStatus.PENDING)) {
+            throw new RuntimeException("Ride Request can't be accepted and its status is: " + rideRequest.getRideRequestStatus());
         }
         Driver currentDriver = getCurrentDriver();
-        if(!currentDriver.getAvailable()){
+        if (!currentDriver.getAvailable()) {
             throw new RuntimeException("Driver is not available");
         }
         currentDriver.setAvailable(false);
@@ -54,20 +54,20 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public RideDTO startRide(Long rideId, String otp) {
-       Ride ride = rideService.getRideById(rideId);
-       Driver driver = getCurrentDriver();
-       if(!driver.equals(ride.getDriver())){
-           throw new RuntimeException("Driver cannot start this ride as he has not accepted it.");
-       }
-       if(!ride.getRideStatus().equals(RideStatus.CONFIRMED)){
-           throw new RuntimeException("Ride status is not confirmed, therefore can't be started, status:"+ ride.getRideStatus());
-       }
-       if(!otp.equals(ride.getOtp())){
-           throw new RuntimeException("Not the valid otp");
-       }
-       ride.setStartedAt(LocalDateTime.now());
-       Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
-       return modelMapper.map(savedRide, RideDTO.class);
+        Ride ride = rideService.getRideById(rideId);
+        Driver driver = getCurrentDriver();
+        if (!driver.equals(ride.getDriver())) {
+            throw new RuntimeException("Driver cannot start this ride as he has not accepted it.");
+        }
+        if (!ride.getRideStatus().equals(RideStatus.CONFIRMED)) {
+            throw new RuntimeException("Ride status is not confirmed, therefore can't be started, status:" + ride.getRideStatus());
+        }
+        if (!otp.equals(ride.getOtp())) {
+            throw new RuntimeException("Not the valid otp");
+        }
+        ride.setStartedAt(LocalDateTime.now());
+        Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
+        return modelMapper.map(savedRide, RideDTO.class);
     }
 
     @Override
@@ -92,6 +92,6 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver getCurrentDriver() {
-        return driverRepository.findById(2L).orElseThrow(()->new ResourceNotFoundException("Current driver not found"));
+        return driverRepository.findById(2L).orElseThrow(() -> new ResourceNotFoundException("Current driver not found"));
     }
 }
