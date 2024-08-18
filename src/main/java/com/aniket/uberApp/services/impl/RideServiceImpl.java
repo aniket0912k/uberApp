@@ -1,9 +1,9 @@
 package com.aniket.uberApp.services.impl;
 
-import com.aniket.uberApp.dto.RideRequestDTO;
 import com.aniket.uberApp.entities.Driver;
 import com.aniket.uberApp.entities.Ride;
 import com.aniket.uberApp.entities.RideRequest;
+import com.aniket.uberApp.entities.Rider;
 import com.aniket.uberApp.entities.enums.RideRequestStatus;
 import com.aniket.uberApp.entities.enums.RideStatus;
 import com.aniket.uberApp.exceptions.ResourceNotFoundException;
@@ -33,11 +33,6 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public void matchWithDrivers(RideRequestDTO rideRequestDTO) {
-
-    }
-
-    @Override
     public Ride createNewRide(RideRequest rideRequest, Driver driver) {
         rideRequest.setRideRequestStatus(RideRequestStatus.CONFIRMED);
 
@@ -58,13 +53,13 @@ public class RideServiceImpl implements RideService {
     }
 
     @Override
-    public Page<Ride> getAllRidesOfRider(Long riderId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfRider(Rider rider, PageRequest pageRequest) {
+        return rideRepository.findByRider(rider, pageRequest);
     }
 
     @Override
-    public Page<Ride> getAllRidesOfDriver(Long driverId, PageRequest pageRequest) {
-        return null;
+    public Page<Ride> getAllRidesOfDriver(Driver driver, PageRequest pageRequest) {
+        return rideRepository.findByDriver(driver, pageRequest);
     }
 
     private String generateRandomOTP() {

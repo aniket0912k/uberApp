@@ -4,8 +4,8 @@ import com.aniket.uberApp.dto.DriverDTO;
 import com.aniket.uberApp.dto.RideDTO;
 import com.aniket.uberApp.dto.RiderDTO;
 import com.aniket.uberApp.entities.Driver;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface DriverService {
     RideDTO acceptRide(Long rideRequestId);
@@ -20,7 +20,9 @@ public interface DriverService {
 
     DriverDTO getMyProfile();
 
-    List<RideDTO> getAllMyRides();
+    Page<RideDTO> getAllMyRides(PageRequest pageRequest);
 
     Driver getCurrentDriver();
+
+    Driver updateDriverAvailability(Driver driver, Boolean available);
 }
