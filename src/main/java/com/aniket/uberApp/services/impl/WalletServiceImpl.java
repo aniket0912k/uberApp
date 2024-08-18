@@ -55,8 +55,7 @@ public class WalletServiceImpl implements com.aniket.uberApp.services.WalletServ
                 .transactionMethod(transactionMethod)
                 .amount(amount)
                 .build();
-
-        wallet.getTransactions().add(walletTransaction);
+        walletTransactionService.createNewWalletTransaction(walletTransaction);
         return walletRepository.save(wallet);
     }
 
