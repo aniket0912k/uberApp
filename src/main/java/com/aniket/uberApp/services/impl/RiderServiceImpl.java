@@ -10,6 +10,7 @@ import com.aniket.uberApp.entities.enums.RideStatus;
 import com.aniket.uberApp.repositories.RideRequestRepository;
 import com.aniket.uberApp.repositories.RiderRepository;
 import com.aniket.uberApp.services.DriverService;
+import com.aniket.uberApp.services.RatingService;
 import com.aniket.uberApp.services.RideService;
 import com.aniket.uberApp.services.RiderService;
 import com.aniket.uberApp.strategies.RideStrategyManager;
@@ -34,6 +35,7 @@ public class RiderServiceImpl implements RiderService {
     private final RiderRepository riderRepository;
     private final RideService rideService;
     private final DriverService driverService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -71,7 +73,15 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public DriverDTO rateDriver(Long rideId, Integer rating) {
-        return null;
+        Ride ride = rideService.getRideById(rideId);
+        Rider rider = getCurrentRider();
+        if (!rider.equals(ride.getRider())) {
+            throw new RuntimeException("Rider not the owner of the ride");
+        }
+        if (!ride.getRideStatus().equals(RideStatus.ENDED)) {
+            throw new RuntimeException("Ride is not ended, therefore can't be rated, status:" + ride.getRideStatus());
+        }
+        return ratingService.rateDriver(ride, rating);
     }
 
     @Override

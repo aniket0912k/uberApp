@@ -3,11 +3,14 @@ package com.aniket.uberApp.services.impl;
 import com.aniket.uberApp.dto.DriverDTO;
 import com.aniket.uberApp.dto.SignUpDTO;
 import com.aniket.uberApp.dto.UserDTO;
+import com.aniket.uberApp.entities.Driver;
 import com.aniket.uberApp.entities.User;
 import com.aniket.uberApp.entities.enums.Role;
+import com.aniket.uberApp.exceptions.ResourceNotFoundException;
 import com.aniket.uberApp.exceptions.RuntimeConflictException;
 import com.aniket.uberApp.repositories.UserRepository;
 import com.aniket.uberApp.services.AuthService;
+import com.aniket.uberApp.services.DriverService;
 import com.aniket.uberApp.services.RiderService;
 import com.aniket.uberApp.services.WalletService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RiderService riderService;
     private final WalletService walletService;
+    private final DriverService driverService;
 
     @Override
     public String login(String email, String password) {
@@ -51,7 +55,22 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public DriverDTO onboardNewDriver(Long userId) {
-        return null;
+    public DriverDTO onboardNewDriver(Long userId, String vehicleId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException("User not found with Id :"+ userId));
+        if(user.getRoles().contains(Role.DRIVER)){
+            throw new RuntimeException("user with id: "+ userId + " is already a driver.");
+        }
+        Driver createDriver = Driver.builder()
+                .rating(0.0)
+                .user(user)
+                .vehicleId(vehicleId)
+                .available(true)
+                .build();
+        user.getRoles().add(Role.DRIVER);
+        userRepository.save(user);
+        Driver savedDriver = driverService.createNewDriver(createDriver);
+        return modelMapper.map(savedDriver, DriverDTO.class);
+
     }
 }

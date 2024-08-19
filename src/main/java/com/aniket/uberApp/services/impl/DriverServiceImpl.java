@@ -12,6 +12,7 @@ import com.aniket.uberApp.exceptions.ResourceNotFoundException;
 import com.aniket.uberApp.repositories.DriverRepository;
 import com.aniket.uberApp.services.DriverService;
 import com.aniket.uberApp.services.PaymentService;
+import com.aniket.uberApp.services.RatingService;
 import com.aniket.uberApp.services.RideService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -31,6 +32,7 @@ public class DriverServiceImpl implements DriverService {
     private final RideService rideService;
     private final ModelMapper modelMapper;
     private final PaymentService paymentService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -82,6 +84,8 @@ public class DriverServiceImpl implements DriverService {
         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
 
         paymentService.createNewPayment(savedRide);
+        ratingService.createNewRating(savedRide);
+
         return modelMapper.map(savedRide, RideDTO.class);
     }
 
@@ -105,7 +109,16 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public RiderDTO rateRider(Long rideId, Integer rating) {
-        return null;
+        Ride ride = rideService.getRideById(rideId);
+        Driver driver = getCurrentDriver();
+        if (!driver.equals(ride.getDriver())) {
+            throw new RuntimeException("Driver not the owner of the ride");
+        }
+        if (!ride.getRideStatus().equals(RideStatus.ENDED)) {
+            throw new RuntimeException("Ride is not ended, therefore can't be rated, status:" + ride.getRideStatus());
+        }
+        return ratingService.rateRider(ride, rating);
+
     }
 
     @Override
@@ -131,6 +144,11 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver updateDriverAvailability(Driver driver, Boolean available) {
         driver.setAvailable(available);
+        return driverRepository.save(driver);
+    }
+
+    @Override
+    public Driver createNewDriver(Driver driver) {
         return driverRepository.save(driver);
     }
 }
