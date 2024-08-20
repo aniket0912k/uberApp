@@ -1,7 +1,6 @@
 package com.aniket.uberApp.entities;
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

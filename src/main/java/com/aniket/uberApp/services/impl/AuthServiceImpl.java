@@ -57,9 +57,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public DriverDTO onboardNewDriver(Long userId, String vehicleId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException("User not found with Id :"+ userId));
-        if(user.getRoles().contains(Role.DRIVER)){
-            throw new RuntimeException("user with id: "+ userId + " is already a driver.");
+                new ResourceNotFoundException("User not found with Id :" + userId));
+        if (user.getRoles().contains(Role.DRIVER)) {
+            throw new RuntimeException("user with id: " + userId + " is already a driver.");
         }
         Driver createDriver = Driver.builder()
                 .rating(0.0)

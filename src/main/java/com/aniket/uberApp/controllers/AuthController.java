@@ -1,6 +1,5 @@
 package com.aniket.uberApp.controllers;
 
-import com.aniket.uberApp.advices.ApiResponse;
 import com.aniket.uberApp.dto.DriverDTO;
 import com.aniket.uberApp.dto.OnboardDriverDTO;
 import com.aniket.uberApp.dto.SignUpDTO;
@@ -26,8 +25,8 @@ public class AuthController {
 
     @PostMapping("/onBoardNewDriver/{userId}")
     ResponseEntity<DriverDTO> onBoardNewDriver(@PathVariable Long userId,
-                                               @RequestBody OnboardDriverDTO onboardDriverDto){
+                                               @RequestBody OnboardDriverDTO onboardDriverDto) {
         return new ResponseEntity<>(authService.onboardNewDriver(userId,
-                onboardDriverDto.getVehicleId()),HttpStatus.CREATED);
+                onboardDriverDto.getVehicleId()), HttpStatus.CREATED);
     }
 }

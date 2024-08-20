@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "app_user",indexes = {
+@Table(name = "app_user", indexes = {
         @Index(name = "idx_user_email", columnList = "email")
 })
 public class User {

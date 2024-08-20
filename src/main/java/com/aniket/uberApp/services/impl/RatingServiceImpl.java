@@ -27,9 +27,9 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public DriverDTO rateDriver(Ride ride, Integer rating) {
         Rating ratingObj = ratingRepository.findByRide(ride).orElseThrow(
-                ()-> new ResourceNotFoundException("Rating not found for the ride: "+ ride.getId())
+                () -> new ResourceNotFoundException("Rating not found for the ride: " + ride.getId())
         );
-        if(ratingObj.getRatingForDriver() != null){
+        if (ratingObj.getRatingForDriver() != null) {
             throw new RuntimeException("Driver already rated");
         }
         ratingObj.setRatingForDriver(rating);
@@ -49,9 +49,9 @@ public class RatingServiceImpl implements RatingService {
     public RiderDTO rateRider(Ride ride, Integer rating) {
         Rider rider = ride.getRider();
         Rating ratingObj = ratingRepository.findByRide(ride).orElseThrow(
-                ()-> new ResourceNotFoundException("Rating not found for the ride: "+ ride.getId())
+                () -> new ResourceNotFoundException("Rating not found for the ride: " + ride.getId())
         );
-        if(ratingObj.getRatingforRider() != null){
+        if (ratingObj.getRatingforRider() != null) {
             throw new RuntimeException("Rider already rated");
         }
         ratingObj.setRatingforRider(rating);
