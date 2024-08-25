@@ -6,6 +6,7 @@ import com.aniket.uberApp.dto.RiderDTO;
 import com.aniket.uberApp.entities.Driver;
 import com.aniket.uberApp.entities.Ride;
 import com.aniket.uberApp.entities.RideRequest;
+import com.aniket.uberApp.entities.User;
 import com.aniket.uberApp.entities.enums.RideRequestStatus;
 import com.aniket.uberApp.entities.enums.RideStatus;
 import com.aniket.uberApp.exceptions.ResourceNotFoundException;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -137,7 +139,8 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver getCurrentDriver() {
-        return driverRepository.findById(2L).orElseThrow(() ->
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return driverRepository.findByUser(user).orElseThrow(() ->
                 new ResourceNotFoundException("Current driver not found"));
     }
 
