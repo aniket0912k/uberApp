@@ -9,6 +9,7 @@ This is a Spring Boot application for an Uber-like ride-sharing service. The app
 - Maven
 - PostgreSQL Database with PostGIS extension
 - JWT for authentication
+- Open Source Routing Machine (OSRM)
 - OpenAPI (Swagger) for API documentation
 
 ## Getting Started
