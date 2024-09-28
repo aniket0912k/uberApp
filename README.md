@@ -1,13 +1,13 @@
 # Uber App
 
-This is a Spring Boot application for an Uber-like ride-sharing service. The application provides APIs for riders and drivers to manage ride requests, rate each other, and handle authentication.
+This is a Spring Boot application for an Uber-like ride-sharing service. The application provides APIs for riders and drivers to manage ride requests, rate each other, handle authentication and much more.
 
 ## Technologies Used
 
 - Java
 - Spring Boot
 - Maven
-- SQL
+- PostgreSQL Database with PostGIS extension
 - JWT for authentication
 - OpenAPI (Swagger) for API documentation
 
@@ -15,9 +15,9 @@ This is a Spring Boot application for an Uber-like ride-sharing service. The app
 
 ### Prerequisites
 
-- Java 11 or higher
+- Java 21
 - Maven 3.6.0 or higher
-- A SQL database (e.g., MySQL, PostgreSQL)
+- A SQL database (PostgreSQL)
 
 ### Installation
 
