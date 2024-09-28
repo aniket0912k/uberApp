@@ -1,0 +1,547 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /rider/requestRide:
+    post:
+      tags:
+      - rider-controller
+      operationId: requestRide
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RideRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideRequestDTO"
+  /rider/rateDriver/:
+    post:
+      tags:
+      - rider-controller
+      operationId: rateDriver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RatingDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DriverDTO"
+  /rider/cancelRide/{rideId}:
+    post:
+      tags:
+      - rider-controller
+      operationId: cancelRide
+      parameters:
+      - name: rideId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideDTO"
+  /driver/startRide/{rideRequestId}:
+    post:
+      tags:
+      - driver-controller
+      operationId: startRide
+      parameters:
+      - name: rideRequestId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RideStartDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideDTO"
+  /driver/rateRider/:
+    post:
+      tags:
+      - driver-controller
+      operationId: rateRider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RatingDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RiderDTO"
+  /driver/endRide/{rideId}:
+    post:
+      tags:
+      - driver-controller
+      operationId: endRide
+      parameters:
+      - name: rideId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideDTO"
+  /driver/cancelRide/{rideId}:
+    post:
+      tags:
+      - driver-controller
+      operationId: cancelRide_1
+      parameters:
+      - name: rideId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideDTO"
+  /driver/acceptRide/{rideRequestId}:
+    post:
+      tags:
+      - driver-controller
+      operationId: acceptRide
+      parameters:
+      - name: rideRequestId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RideDTO"
+  /auth/signup:
+    post:
+      tags:
+      - auth-controller
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+  /auth/refresh:
+    post:
+      tags:
+      - auth-controller
+      operationId: refresh
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponseDTO"
+  /auth/onBoardNewDriver/{userId}:
+    post:
+      tags:
+      - auth-controller
+      operationId: onBoardNewDriver
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OnboardDriverDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DriverDTO"
+  /auth/login:
+    post:
+      tags:
+      - auth-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequestDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponseDTO"
+  /rider/rides:
+    get:
+      tags:
+      - rider-controller
+      operationId: getRiderService
+      parameters:
+      - name: pageOffset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageRideDTO"
+  /rider/profile:
+    get:
+      tags:
+      - rider-controller
+      operationId: getProfile
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RiderDTO"
+  /driver/rides:
+    get:
+      tags:
+      - driver-controller
+      operationId: getRideService
+      parameters:
+      - name: pageOffset
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageRideDTO"
+  /driver/profile:
+    get:
+      tags:
+      - driver-controller
+      operationId: getProfile_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DriverDTO"
+components:
+  schemas:
+    PointDTO:
+      type: object
+      properties:
+        coordinates:
+          type: array
+          items:
+            type: number
+            format: double
+        type:
+          type: string
+    RideRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        pickupLocation:
+          $ref: "#/components/schemas/PointDTO"
+        dropLocation:
+          $ref: "#/components/schemas/PointDTO"
+        requestedTime:
+          type: string
+          format: date-time
+        rider:
+          $ref: "#/components/schemas/RiderDTO"
+        paymentMethod:
+          type: string
+          enum:
+          - CASH
+          - WALLET
+        rideRequestStatus:
+          type: string
+          enum:
+          - PENDING
+          - CANCELLED
+          - CONFIRMED
+        fare:
+          type: number
+          format: double
+    RiderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user:
+          $ref: "#/components/schemas/UserDTO"
+        rating:
+          type: number
+          format: double
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - ADMIN
+            - DRIVER
+            - RIDER
+    RatingDTO:
+      type: object
+      properties:
+        rideId:
+          type: integer
+          format: int64
+        rating:
+          type: integer
+          format: int32
+    DriverDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user:
+          $ref: "#/components/schemas/UserDTO"
+        rating:
+          type: number
+          format: double
+        available:
+          type: boolean
+        vehicleId:
+          type: string
+    RideDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        pickupLocation:
+          $ref: "#/components/schemas/PointDTO"
+        dropLocation:
+          $ref: "#/components/schemas/PointDTO"
+        createdTime:
+          type: string
+          format: date-time
+        rider:
+          $ref: "#/components/schemas/RiderDTO"
+        driver:
+          $ref: "#/components/schemas/DriverDTO"
+        paymentMethod:
+          type: string
+          enum:
+          - CASH
+          - WALLET
+        rideStatus:
+          type: string
+          enum:
+          - CANCELLED
+          - CONFIRMED
+          - ENDED
+          - ONGOING
+        fare:
+          type: number
+          format: double
+        otp:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        endedAt:
+          type: string
+          format: date-time
+    RideStartDTO:
+      type: object
+      properties:
+        otp:
+          type: string
+    SignUpDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    LoginResponseDTO:
+      type: object
+      properties:
+        token:
+          type: string
+    OnboardDriverDTO:
+      type: object
+      properties:
+        vehicleId:
+          type: string
+    LoginRequestDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PageRideDTO:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/RideDTO"
+        number:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        paged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        direction:
+          type: string
+        nullHandling:
+          type: string
+        ascending:
+          type: boolean
+        property:
+          type: string
+        ignoreCase:
+          type: boolean
